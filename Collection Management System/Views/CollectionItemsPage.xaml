@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:Collection_Management_System.Models"
+             x:Class="Collection_Management_System.Views.CollectionItemsPage"
+             Title="{Binding CollectionName}">
+
+    <Grid RowDefinitions="*, Auto" Padding="20">
+        <CollectionView Grid.Row="0" ItemsSource="{Binding Items}" SelectionMode="Single" SelectionChanged="OnItemSelected">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:CollectibleItem">
+                    <Frame Margin="0,5" Padding="15" BorderColor="Gray">
+                        <VerticalStackLayout>
+                            <Label Text="{Binding Name}" FontSize="18" FontAttributes="Bold"/>
+                            <Label Text="{Binding Description}" FontSize="14" TextColor="Gray"/>
+                        </VerticalStackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Button Grid.Row="1" Text="Add new item" Clicked="OnAddItemClicked" Margin="0,10,0,0"/>
+    </Grid>
+</ContentPage>
