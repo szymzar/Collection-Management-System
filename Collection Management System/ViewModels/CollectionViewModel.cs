@@ -1,13 +1,10 @@
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Windows.Input;
 using Collection_Management_System.Models;
 using Collection_Management_System.Services;
 
 namespace Collection_Management_System.ViewModels
 {
-    public class CollectionViewModel : INotifyPropertyChanged
+    public class CollectionViewModel
     {
         private readonly FileService _fileService;
         private UserCollection _collection;
@@ -33,19 +30,12 @@ namespace Collection_Management_System.ViewModels
             item.Name = name;
             item.Description = description;
             _fileService.SaveCollection(_collection);
-            OnPropertyChanged(nameof(Items));
         }
 
         public void DeleteItem(CollectibleItem item)
         {
             _collection.Items.Remove(item);
             _fileService.SaveCollection(_collection);
-        }
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string? propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

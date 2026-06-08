@@ -6,24 +6,44 @@
              x:Class="Collection_Management_System.Views.CollectionsPage"
              Title="My Collections">
 
-    <Grid RowDefinitions="Auto, *, Auto" Padding="20">
+    <!-- Zmieniamy definicję wierszy: 
+         Auto (tytuł), Auto (dodawanie), * (lista zajmuje resztę miejsca) -->
+    <Grid RowDefinitions="Auto, Auto, *" Padding="20">
+        
+        <!-- 1. TYTUŁ (Row 0) -->
         <Label Text="Collection Management System" 
-               FontSize="24" FontAttributes="Bold" 
-               HorizontalOptions="Center" Margin="0,0,0,20" Grid.Row="0"/>
+               FontSize="28" FontAttributes="Bold" 
+               HorizontalOptions="Center" Margin="0,0,0,10" Grid.Row="0"/>
 
-        <CollectionView Grid.Row="1" ItemsSource="{Binding Collections}" SelectionMode="Single" SelectionChanged="OnCollectionSelected">
+        <!-- 2. SEKCJA DODAWANIA (Row 1) - Teraz pod tytułem -->
+        <VerticalStackLayout Grid.Row="1" Spacing="15" Margin="0,10,0,20">
+            <Entry x:Name="NewCollectionEntry" 
+                   Placeholder="Enter new collection name..." 
+                   FontSize="20"
+                   HeightRequest="60"
+                   HorizontalOptions="Fill"/>
+            
+            <Button Text="ADD NEW COLLECTION" 
+                    Clicked="OnAddCollectionClicked"
+                    FontSize="18"
+                    FontAttributes="Bold"
+                    TextColor="White"
+                    HeightRequest="60"
+                    BackgroundColor="{StaticResource Primary}"/>
+        </VerticalStackLayout>
+
+        <!-- 3. LISTA KOLEKCJI (Row 2) - Na samym dole -->
+        <CollectionView Grid.Row="2" ItemsSource="{Binding Collections}" SelectionMode="Single" SelectionChanged="OnCollectionSelected">
+            <CollectionView.Header>
+                <Label Text="Your Collections:" FontSize="16" Margin="0,0,0,10" TextColor="Gray"/>
+            </CollectionView.Header>
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="models:UserCollection">
-                    <Frame Margin="0,5" Padding="15" BorderColor="Gray">
-                        <Label Text="{Binding Name}" FontSize="18"/>
+                    <Frame Margin="0,10" Padding="15" BorderColor="Gray" CornerRadius="10">
+                        <Label Text="{Binding Name}" FontSize="20" FontAttributes="Bold"/>
                     </Frame>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-
-        <HorizontalStackLayout Grid.Row="2" Spacing="10" Margin="0,20,0,0">
-            <Entry x:Name="NewCollectionEntry" Placeholder="New collection name" WidthRequest="250"/>
-            <Button Text="Add" Clicked="OnAddCollectionClicked"/>
-        </HorizontalStackLayout>
     </Grid>
 </ContentPage>

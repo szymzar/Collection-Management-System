@@ -1,32 +1,9 @@
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-
 namespace Collection_Management_System.Models
 {
-    public class CollectibleItem : INotifyPropertyChanged
+    public class CollectibleItem
     {
-        private string _name = string.Empty;
-        private string _description = string.Empty;
-
-        public string Name
-        {
-            get => _name;
-            set
-            {
-                _name = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public string Description
-        {
-            get => _description;
-            set
-            {
-                _description = value;
-                OnPropertyChanged();
-            }
-        }
+        public string Name { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
 
         public string ToFileString()
         {
@@ -45,12 +22,6 @@ namespace Collection_Management_System.Models
                 };
             }
             return new CollectibleItem { Name = line };
-        }
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string? propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

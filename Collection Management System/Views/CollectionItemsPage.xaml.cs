@@ -14,6 +14,16 @@ namespace Collection_Management_System.Views
             BindingContext = _viewModel;
         }
 
+        private async void OnAddItemClicked(object sender, EventArgs e)
+        {
+            string name = await DisplayPromptAsync("New Item", "Enter item name:");
+            if (string.IsNullOrWhiteSpace(name)) return;
+
+            string description = await DisplayPromptAsync("New Item", "Enter description:");
+            
+            _viewModel.AddItem(name, description);
+        }
+
         private async void OnItemSelected(object sender, SelectionChangedEventArgs e)
         {
             if (e.CurrentSelection.FirstOrDefault() is CollectibleItem selectedItem)
@@ -21,11 +31,6 @@ namespace Collection_Management_System.Views
                 ((CollectionView)sender).SelectedItem = null;
                 await Navigation.PushAsync(new ItemEditPage(_viewModel, selectedItem));
             }
-        }
-
-        private async void OnAddItemClicked(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new ItemEditPage(_viewModel));
         }
     }
 }

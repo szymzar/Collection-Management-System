@@ -6,24 +6,19 @@ namespace Collection_Management_System.Services
 {
     public class FileService
     {
-        // Ścieżka do folderu z danymi aplikacji
         private readonly string _dataDirectory = Path.Combine(FileSystem.AppDataDirectory, "Collections");
 
         public FileService()
         {
-            // Tworzymy folder jeśli nie istnieje
             if (!Directory.Exists(_dataDirectory))
             {
                 Directory.CreateDirectory(_dataDirectory);
             }
             
-            // Print path to Debug (Requirement for Grade 2)
             Debug.WriteLine($"App Data Path: {_dataDirectory}");
         }
 
         public string GetDataDirectoryPath() => _dataDirectory;
-
-        // Wczytywanie wszystkich kolekcji (każdy plik .txt to jedna kolekcja)
         public ObservableCollection<UserCollection> LoadCollections()
         {
             var collections = new ObservableCollection<UserCollection>();
@@ -48,7 +43,6 @@ namespace Collection_Management_System.Services
             return collections;
         }
 
-        // Zapisywanie konkretnej kolekcji do pliku
         public void SaveCollection(UserCollection collection)
         {
             var filePath = Path.Combine(_dataDirectory, $"{collection.Name}.txt");
@@ -62,7 +56,6 @@ namespace Collection_Management_System.Services
             File.WriteAllLines(filePath, lines);
         }
 
-        // Usuwanie kolekcji (pliku)
         public void DeleteCollection(string collectionName)
         {
             var filePath = Path.Combine(_dataDirectory, $"{collectionName}.txt");

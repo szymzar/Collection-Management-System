@@ -19,7 +19,6 @@ namespace Collection_Management_System.Views
             if (e.CurrentSelection.FirstOrDefault() is UserCollection selectedCollection)
             {
                 ((CollectionView)sender).SelectedItem = null;
-                
                 await Navigation.PushAsync(new CollectionItemsPage(selectedCollection));
             }
         }
@@ -29,7 +28,7 @@ namespace Collection_Management_System.Views
             var name = NewCollectionEntry.Text;
             if (!string.IsNullOrWhiteSpace(name))
             {
-                _viewModel.AddCollectionCommand.Execute(name);
+                _viewModel.AddCollection(name);
                 NewCollectionEntry.Text = string.Empty;
             }
         }
